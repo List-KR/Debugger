@@ -1,0 +1,1 @@
+https://github.com/List-KR/Debugger/raw/main/APIdebug.user.js
