@@ -7,7 +7,7 @@
 // @downloadURL  https://github.com/List-KR/Debugger/raw/main/APIdebug.user.js
 // @license      MIT
 //
-// @version      1.0
+// @version      1.1
 // @author       PiQuark6046 and contributors
 //
 // @match        *://*/*
@@ -59,6 +59,16 @@
         apply: (target, thisArg, argsList) =>
         {
             console.debug("EventTarget.prototype.addEventListener -> ", [target, thisArg, argsList])
+            Reflect.apply(target, thisArg, argsList)
+        }
+    })
+
+    win.open = new Proxy(
+    win.open,
+    {
+        apply: (target, thisArg, argsList) =>
+        {
+            console.debug("open -> ", [target, thisArg, argsList])
             Reflect.apply(target, thisArg, argsList)
         }
     })
