@@ -7,7 +7,7 @@
 // @downloadURL  https://github.com/List-KR/Debugger/raw/main/APIdebug.user.js
 // @license      MIT
 //
-// @version      1.1
+// @version      1.2
 // @author       PiQuark6046 and contributors
 //
 // @match        *://*/*
@@ -72,4 +72,15 @@
             Reflect.apply(target, thisArg, argsList)
         }
     })
+
+    win.Function.prototype.apply = new Proxy(
+    win.Function.prototype.apply,
+    {
+        apply: (target, thisArg, argsList) =>
+        {
+            console.debug("Function.prototype.apply -> ", [target, thisArg, argsList])
+            Reflect.apply(target, thisArg, argsList)
+        }
+    }
+    )
 })();
