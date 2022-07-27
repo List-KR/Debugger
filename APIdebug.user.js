@@ -7,7 +7,7 @@
 // @downloadURL  https://github.com/List-KR/Debugger/raw/main/APIdebug.user.js
 // @license      MIT
 //
-// @version      1.2
+// @version      1.2.1
 // @author       PiQuark6046 and contributors
 //
 // @match        *://*/*
@@ -78,8 +78,9 @@
     {
         apply: (target, thisArg, argsList) =>
         {
-            console.debug("Function.prototype.apply -> ", [target, thisArg, argsList])
-            Reflect.apply(target, thisArg, argsList)
+            const original = Reflect.apply(target, thisArg, argsList)
+            console.debug("Function.prototype.apply -> ", [target, thisArg, argsList, original])
+            return original
         }
     }
     )
