@@ -7,7 +7,7 @@
 // @downloadURL  https://github.com/List-KR/Debugger/raw/main/APIdebug.user.js
 // @license      MIT
 //
-// @version      1.2.1
+// @version      1.2.2
 // @author       PiQuark6046 and contributors
 //
 // @match        *://*/*
@@ -84,4 +84,24 @@
         }
     }
     )
+
+    win.Element.prototype.setAttribute = new Proxy(
+    win.Element.prototype.setAttribute,
+    {
+        apply: (target, thisArg, argsList) =>
+        {
+            console.debug("Element.prototype.setAttribute -> ", [target, thisArg, argsList])
+            Reflect.apply(target, thisArg, argsList)
+        }
+    })
+
+    win.Element.prototype.toggleAttribute = new Proxy(
+    win.Element.prototype.toggleAttribute,
+    {
+        apply: (target, thisArg, argsList) =>
+        {
+            console.debug("Element.prototype.setAttribute -> ", [target, thisArg, argsList])
+            Reflect.apply(target, thisArg, argsList)
+        }
+    })
 })();
