@@ -7,7 +7,7 @@
 // @downloadURL  https://github.com/List-KR/Debugger/raw/main/APIdebug.user.js
 // @license      MIT
 //
-// @version      1.2.2
+// @version      1.2.3
 // @author       PiQuark6046 and contributors
 //
 // @match        *://*/*
@@ -102,6 +102,17 @@
         {
             console.debug("Element.prototype.setAttribute -> ", [target, thisArg, argsList])
             Reflect.apply(target, thisArg, argsList)
+        }
+    })
+
+    win.String.fromCharCode = new Proxy(
+    win.String.fromCharCode,
+    {
+        apply: (target, thisArg, argsList) =>
+        {
+            const original = Reflect.apply(target, thisArg, argsList)
+            console.debug("String.fromCharCode -> ", original)
+            return original
         }
     })
 })();
